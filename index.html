@@ -1,0 +1,99 @@
+Ана Саидҷон, ҳамин кодро пурра КОПИЯ кун ва дар GitHub ЧАСБОН кун! 👇
+
+Дар ҷои калон `Enter file contents here` часбон:
+<!DOCTYPE html>
+<html lang="tg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stitch English - Бо Стич Англисиро Омӯз!</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+body{background:#a2d2ff;color:#1d3557;min-height:100vh}
+header{background:#0077b6;color:white;padding:20px;text-align:center;border-radius:0 0 30px 30px;box-shadow:0 5px 15px rgba(0,0,0,0.2)}
+header h1{font-size:28px}
+header p{opacity:0.9;margin-top:5px}
+.container{max-width:900px;margin:20px auto;padding:0 15px}
+.card{background:white;border-radius:20px;padding:20px;margin:15px 0;box-shadow:0 8px 20px rgba(0,0,0,0.1);border:3px solid #48cae4}
+.stitch{font-size:50px;text-align:center}
+.word-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:15px}
+.word{background:#caf0f8;border-radius:15px;padding:15px;text-align:center;cursor:pointer;transition:0.2s;border:2px solid transparent}
+.word:hover{transform:scale(1.05);border-color:#0077b6;background:#90e0ef}
+.word b{display:block;font-size:20px;color:#0077b6}
+.word span{font-size:14px;color:#555}
+.quiz-btn{background:#00b4d8;color:white;border:none;padding:15px 30px;border-radius:30px;font-size:18px;font-weight:bold;cursor:pointer;width:100%;margin-top:10px}
+.quiz-btn:hover{background:#0077b6}
+#quizArea{display:none}
+.option{background:#f1faff;border:2px solid #90e0ef;padding:12px;border-radius:12px;margin:8px 0;cursor:pointer}
+.option:hover{background:#caf0f8}
+.correct{background:#b7e4c7!important;border-color:#2d6a4f!important}
+.wrong{background:#ffc8c8!important;border-color:#c1121f!important}
+footer{text-align:center;padding:20px;color:#0077b6;opacity:0.7}
+</style>
+</head>
+<body>
+<header>
+<h1>🌺 Stitch English 🌊</h1>
+<p>Бо Стич англисиро шавқовар омӯз! Ohana means family!</p>
+</header>
+
+<div class="container">
+<div class="card">
+<div class="stitch">👽💙</div>
+<h2 style="text-align:center">Салом! Ман Стич! Биёед калимаҳоро омӯзем!</h2>
+<div class="word-grid">
+<div class="word" onclick="speak('Hello')"><b>Hello</b><span>Салом</span>🔊</div>
+<div class="word" onclick="speak('Family')"><b>Family - Ohana</b><span>Оила</span>🔊</div>
+<div class="word" onclick="speak('Friend')"><b>Friend</b><span>Дӯст</span>🔊</div>
+<div class="word" onclick="speak('Love')"><b>Love</b><span>Муҳаббат</span>🔊</div>
+<div class="word" onclick="speak('Happy')"><b>Happy</b><span>Хушбахт</span>🔊</div>
+<div class="word" onclick="speak('Ocean')"><b>Ocean</b><span>Уқёнус</span>🔊</div>
+<div class="word" onclick="speak('Adventure')"><b>Adventure</b><span>Саргузашт</span>🔊</div>
+<div class="word" onclick="speak('Dream')"><b>Dream</b><span>Орзу</span>🔊</div>
+</div>
+</div>
+
+<div class="card">
+<h2>🎮 Бозии Стич - Quiz</h2>
+<p>Омадаи, чӣ қадар ёд гирифтӣ? Пахш кун!</p>
+<button class="quiz-btn" onclick="startQuiz()">Оғози Бозӣ ▶️</button>
+<div id="quizArea">
+<h3 id="qText" style="margin:15px 0"></h3>
+<div id="options"></div>
+<p id="score" style="margin-top:15px;font-weight:bold"></p>
+</div>
+</div>
+
+<div class="card" style="background:#0077b6;color:white;text-align:center">
+<h2>🚀 Сирри Стич:</h2>
+<p style="margin-top:10px;font-size:18px">"This is my family. I found it, all on my own. It's little, and broken, but still good!"</p>
+<p style="margin-top:10px;opacity:0.8">Тарҷума: Ин оилаи ман аст. Худам ёфтам. Хурд ва шикаста аст, аммо ба ҳар ҳол хуб аст!</p>
+</div>
+</div>
+
+<footer>Made with 💙 by saidjon23 | Stitch English Learning</footer>
+
+<script>
+const quiz=[
+{q:"Family ба тоҷикӣ чи мешавад?",a:["Оила","Мактаб","Об"],c:0},
+{q:"Hello чӣ маъно дорад?",a:["Хайр","Салом","Шаб ба хайр"],c:1},
+{q:"Ohana аз филми Стич чӣ маъно дорад?",a:["Оила","Дӯстӣ","Хона"],c:0},
+{q:"Love = ?",a:["Нафрат","Муҳаббат","Хурсандӣ"],c:1}
+];
+let qi=0,sc=0;
+function speak(t){speechSynthesis.speak(new SpeechSynthesisUtterance(t));}
+function startQuiz(){qi=0;sc=0;document.getElementById('quizArea').style.display='block';showQ();}
+function showQ(){
+if(qi>=quiz.length){document.getElementById('qText').innerText=`Табрик! ${sc}/${quiz.length} хол! 🎉 Стич аз ту хурсанд аст!`;document.getElementById('options').innerHTML='';return;}
+let q=quiz[qi];document.getElementById('qText').innerText=(qi+1)+'. '+q.q;
+let h='';q.a.forEach((opt,i)=>{h+=`<div class="option" onclick="check(${i})">${opt}</div>`});document.getElementById('options').innerHTML=h;
+document.getElementById('score').innerText=`Хол: ${sc}`;
+}
+function check(i){
+let q=quiz[qi];let opts=document.querySelectorAll('.option');
+if(i==q.c){opts[i].classList.add('correct');sc++;speak('Correct!')}else{opts[i].classList.add('wrong');opts[q.c].classList.add('correct');speak('Try again')}
+setTimeout(()=>{qi++;showQ();},1000);
+}
+</script>
+</body>
+</html>
